@@ -34,9 +34,14 @@ Recursos:
         
         //Titulo
         function Titulo() {
-            return <h1>Prueba REACT</h1>;
+            return (
+                <h1>Prueba REACT</h1>);
         }
-
+        //GIT
+        function GIT(){
+            return(<h2><a href="https://github.com/0liRem/ReactIntro">GIT</a></h2>);
+                
+        }
         //forumulario para el comentarios
         function CommentForm({ onCommentSubmit }) {
             //Parametros
@@ -76,6 +81,7 @@ Recursos:
             return (
                 <div>
                     <Titulo />
+                    <GIT />
                     <CommentForm onCommentSubmit={handleNewComment} />
                     <div>
                         <h2>lista de comentarios:</h2>
