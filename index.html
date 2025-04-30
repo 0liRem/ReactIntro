@@ -1,0 +1,97 @@
+<!-- Documentación 
+ 
+Autor: Olivier Viau
+
+Fin en mente: Aprender las bases de React utilizando DOM y Babel para crear una lista de comentarios
+
+
+Recursos:
+    Recursos proporcionados por Ludwing
+    Documentación React
+    ChatGPT, para consultas sobre sintaxis y dudas generales
+
+
+    Historial de modificaciones:
+    [000] 29/4/2025
+
+-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>What</title>
+    <!-- React -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <!-- ReactDOM -->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <!-- Babel para procesar JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        
+        //Titulo
+        function Titulo() {
+            return <h1>Prueba REACT</h1>;
+        }
+
+        //forumulario para el comentarios
+        function CommentForm({ onCommentSubmit }) {
+            //Parametros
+            const [comment, setComment] = React.useState('');
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                if (comment.trim()) {
+                    onCommentSubmit(comment);
+                    setComment('');
+                }
+            };
+
+            //botón para enviar
+            return (
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="text"
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                    />
+
+
+                    <button type="submit">publicar</button>
+                </form>
+            );
+        }
+
+        // Lista 
+        function App() {
+            const [comments, setComments] = React.useState([]);
+
+            const handleNewComment = (newComment) => {
+                setComments([...comments, newComment]);
+            };
+            //Muestra todos los elementos
+            //El map sirve para hacer listas, queria aplicar filter para probar, pero no encontre la manera.
+            return (
+                <div>
+                    <Titulo />
+                    <CommentForm onCommentSubmit={handleNewComment} />
+                    <div>
+                        <h2>lista de comentarios:</h2>
+                        <ul>
+                            {comments.map((comment, index) => (
+                                <li key={index}>{comment}</li>
+                            ))} 
+                        </ul>
+                    </div>
+                </div>
+            );
+        }
+
+        // utiliza el div del inicio para renderizar todos los elementos con REACTDOM
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
